@@ -92,17 +92,6 @@ MybatisMapper.prototype.getStatement = function(namespace, sql, param, format) {
       // Convert SQL statement recursively
       statement += convert.convertChildren(children, param, namespace, myBatisMapper);
     }
-    
-    // Check not converted Parameters
-    var regexList = ['\\#{\\S*}', '\\${\\S*}'];
-    for (var i = 0, regexString; regexString = regexList[i]; i++){
-      var regex = new RegExp(regex, 'g');
-      var checkParam = statement.match(regexString);
-      
-      if (checkParam != null && checkParam.length > 0) {
-        throw new Error("Parameter " + checkParam.join(",") + " is not converted.");
-      }
-    }
 
     // SQL formatting
     if (format != undefined && format != null){
